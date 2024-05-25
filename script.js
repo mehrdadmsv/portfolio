@@ -7,21 +7,24 @@ document.addEventListener("DOMContentLoaded", function () {
     const sections = document.querySelectorAll(".section");
 
     function toggleMenu() {
+        const topnav = document.getElementById("topnav");
+        const close = document.getElementById("close");
+        const hamburger = document.getElementById("hamburger");
+      
         topnav.classList.toggle("active");
-        body.classList.toggle("no-scroll");
-
-        // Hide or show sections based on the menu state
-        if (body.classList.contains("no-scroll")) {
-            sections.forEach(section => section.style.display = "none");
+      
+        // Prevent scrolling while menu is open
+        if (topnav.classList.contains("active")) {
+          document.body.style.overflow = "hidden";
         } else {
-            setTimeout(() => {
-                sections.forEach(section => section.style.display = "flex");
-            }, 500); // Adjust this delay to match your menu transition duration
+          document.body.style.overflow = "auto";
         }
-
+      
+        // Show/hide hamburger and close icons based on menu state
         hamburger.style.display = hamburger.style.display === 'none' ? 'block' : 'none';
         close.style.display = close.style.display === 'block' ? 'none' : 'block';
     }
+      
 
     function checkScreenSize() {
         if (window.innerWidth > 768) {
