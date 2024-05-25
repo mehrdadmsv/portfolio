@@ -1,0 +1,308 @@
+/* Root definitions for color themes */
+:root {
+    --body_bkgr_color: #fcffff;
+    --header_bkgr_color: #e3f3fb;
+    --submenu_bkgr_color: #fcffff;
+    --footer_bkgr_color: #e3f3fb;
+    --border_color: #cccccc;
+    --nav_text_color: #2f322a;
+    --body_text_color: #000000;
+    --body_link_color: #010e45;
+    --body_link_hover_color: #059BD8;
+    --button_bkgr_color: #1C5E82;
+    --button_hover_bkgr_color: #059BD8;
+    --button_text_color: #FFFFFF;
+}
+
+/* Universal base styles */
+*, *:before, *:after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    background: #000000;
+    color: var(--body_text_color);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+body.no-scroll {
+    overflow: hidden; /* Disable vertical scrolling */
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure wrapper takes full height */
+}
+
+/* Header styles */
+#header {
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Space between for larger screens */
+    padding: 10px 20px; /* Consistent padding */
+    border-bottom: 1px solid var(--border_color);
+    position: relative;
+    height: 60px; /* Fixed height for the header */
+    box-sizing: border-box; /* Include padding and border in height */
+}
+
+#header .logo {
+    max-height: 40px; /* Adjusted for better visibility */
+}
+
+/* Navigation styles */
+#topnav {
+    font-size: 1rem;
+    background-color: #FFFFFF;
+    transition: right 0.5s ease-in-out;
+    position: relative;
+}
+
+#topnav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Display as flex for larger screens */
+    align-items: center; /* Center items vertically */
+}
+
+#topnav ul li {
+    margin: 0 10px;
+}
+
+#topnav ul li a {
+    padding: 10px 15px;
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    color: var(--nav_text_color);
+    text-decoration: none;
+    position: relative;
+    line-height: 1.5;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+#topnav ul li a .text {
+    display: inline-block;
+    position: relative;
+}
+
+#topnav ul li:hover > a {
+    color: var(--body_link_hover_color);
+}
+
+#topnav ul li a .text::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0px;
+    left: 0;
+    background: var(--body_link_hover_color);
+    transition: width 0.5s ease;
+}
+
+#topnav ul li:hover .text::after {
+    width: 100%;
+}
+
+/* Hamburger menu styles */
+.hamburger {
+    display: none; /* Hide by default */
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-right: 20px;
+    display: flex;
+    align-items: center; /* Center items vertically */
+}
+
+/* Close button styles */
+.close {
+    display: none;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 1001; /* Ensure it's above other elements */
+}
+
+/* Intro section with adjusted padding */
+#intro {
+    background-color: #dedede;
+    height: 100vh;
+    padding: 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#intro .fl {
+    padding: 3%;
+    color: #000000;
+}
+
+#intro .fl h2 {
+    font-size: 2em;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#intro .fl p {
+    line-height: 1.6;
+}
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.spacer {
+    background: #000000;
+    height: 100vh;
+}
+
+.section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#message {
+    background: #000000;
+}
+
+#message h2 {
+    color: #fff;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.pin {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+/* Canvas styles */
+canvas {
+    width: 50%;
+    max-width: 50%;
+    height: auto;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+    #header {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    #header .logo {
+        margin: 0 10px;
+    }
+
+    #topnav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100%;
+        width: 100%;
+        background-color: #FFFFFF;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #topnav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #topnav ul li a {
+        padding: 10px;
+    }
+
+    .hamburger {
+        display: flex;
+        align-items: center;
+    }
+
+    .close {
+        display: none;
+    }
+
+    #topnav.active .close {
+        display: block;
+    }
+
+    #topnav.active {
+        right: 0;
+    }
+
+    #topnav ul li:hover .text::after {
+        width: 0;
+    }
+
+    .pin {
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+    }
+
+    canvas {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+@media (min-width: 769px) {
+    #topnav {
+        position: relative;
+        right: auto;
+        height: auto;
+        width: auto;
+        background-color: transparent;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #topnav ul {
+        flex-direction: row;
+    }
+
+    .hamburger {
+        display: none;
+    }
+
+    .close {
+        display: none;
+    }
+}
+
+/* Add this new class */
+.no-scroll .section {
+    display: none;
+}
+
+/* Scroll animation visible class */
+.visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
