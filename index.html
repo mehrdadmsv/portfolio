@@ -2,41 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Mehrdad Moosavi - Portfolio</title>
+    <title>Nelly Mafi - Portfolio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css" type="text/css">
-    <link rel="icon" href="assets/flavicon.png" type="image/png">
+    <!-- Set favicon to the same image as the logo -->
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/animation.gsap.min.js"></script>
 </head>
-<body>
+<body data-bg="light">
     <div class="wrapper">
         <div id="header">
-            <img src="assets/logo.png" alt="Logo" class="logo">
-            <div id="topnav">
-                <div class="close" id="close">
-                    <i class="fas fa-times"></i>
-                </div>
-                <ul>
-                    <li class="active"><a href="index.html"><span class="text">Home</span></a></li>
-                    <li><a href="#"><span class="text">About</span></a></li>
-                    <li><a href="#"><span class="text">Contact</span></a></li>
-                </ul>
+            <div class="logo-container">
+                <img src="assets/images/logo.png" alt="Logo" class="logo">
+                <span class="site-name">NELLY MAFI</span>
             </div>
-            <div class="hamburger" id="hamburger">
-                <i class="fas fa-bars"></i>
+            <div id="topnav">
+                <ul>
+                    <li><a href="#"><span class="text">ABOUT</span></a></li>
+                </ul>
             </div>
         </div>
 
         <div id="intro" class="section">
-            <div class="fl">
-                <h2 id="introText">Mehrdad Moosavi</h2>
+            <div class="video-container">
+                <video autoplay muted loop>
+                    <source src="assets/videos/lotus.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="content-container">
+                <div class="intro-text">
+                    <h2 id="introText">Nelly Mafi</h2>
+                </div>
             </div>
         </div>
 
-        <div class="spacer"></div>
+        <div class="white-spacer"></div>
 
         <div id="message" class="section">
             <h2 id="welcomeText">Welcome to the Future</h2>
