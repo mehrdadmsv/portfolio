@@ -1,82 +1,74 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Burger menu js
-    const hamburger = document.getElementById("hamburger");
-    const close = document.getElementById("close");
-    const topnav = document.getElementById("topnav");
-    const body = document.body;
-    const sections = document.querySelectorAll(".section");
-
-    function toggleMenu() {
-        const topnav = document.getElementById("topnav");
-        const close = document.getElementById("close");
-        const hamburger = document.getElementById("hamburger");
-      
-        topnav.classList.toggle("active");
-      
-        // Prevent scrolling while menu is open
-        if (topnav.classList.contains("active")) {
-          document.body.style.overflow = "hidden";
-        } else {
-          document.body.style.overflow = "auto";
-        }
-      
-        // Show/hide hamburger and close icons based on menu state
-        hamburger.style.display = hamburger.style.display === 'none' ? 'block' : 'none';
-        close.style.display = close.style.display === 'block' ? 'none' : 'block';
-    }
-      
-
-    function checkScreenSize() {
-        if (window.innerWidth > 768) {
-            hamburger.style.display = 'none';
-            close.style.display = 'none';
-            topnav.classList.remove("active");
-            body.classList.remove("no-scroll");
-            sections.forEach(section => section.style.display = "flex");
-        } else {
-            hamburger.style.display = 'block';
-            close.style.display = 'none';
-        }
-    }
-
-    hamburger.addEventListener("click", toggleMenu);
-    close.addEventListener("click", toggleMenu);
-    window.addEventListener("resize", checkScreenSize);
-
-    // Initial check
-    checkScreenSize();
-
-    // ScrollMagic animations
+    // Initialize ScrollMagic controller
     const controller = new ScrollMagic.Controller();
 
-    // Intro animation
+    /**
+     * Function to check the background color based on scroll position
+     * and update the data attribute of the body element accordingly.
+     */
+    function updateBackground() {
+        // Get references to the sections
+        const introSection = document.getElementById('intro');
+        const whiteSpacerSection = document.querySelector('.white-spacer');
+        const messageSection = document.getElementById('message');
+
+        // Get the bounding rectangles of the sections
+        const introRect = introSection.getBoundingClientRect();
+        const whiteSpacerRect = whiteSpacerSection.getBoundingClientRect();
+        const messageRect = messageSection.getBoundingClientRect();
+
+        // Get the body element
+        const body = document.body;
+
+        // Check the top of the viewport to determine which section is in view
+        const topOfViewport = 0;
+
+        if (introRect.top <= topOfViewport && introRect.bottom > topOfViewport) {
+            body.setAttribute('data-bg', 'light');
+        } else if (whiteSpacerRect.top <= topOfViewport && whiteSpacerRect.bottom > topOfViewport) {
+            body.setAttribute('data-bg', 'white');
+        } else if (messageRect.top <= topOfViewport && messageRect.bottom > topOfViewport) {
+            body.setAttribute('data-bg', 'dark');
+        }
+    }
+
+    // Attach scroll and resize event listeners to update background on events
+    window.addEventListener('scroll', updateBackground);
+    window.addEventListener('resize', updateBackground);
+
+    // Initial check to set the correct background attribute
+    updateBackground();
+
+    // Intro section animation
     new ScrollMagic.Scene({
         triggerElement: "#intro",
-        duration: "100%",
-        triggerHook: 0.5
+        duration: "100%", // Animation duration is 100% of the section height
+        triggerHook: 0.5 // Trigger the animation when the element is in the middle of the viewport
     })
-        .setClassToggle("#introText", "visible")
-        .addTo(controller);
+        .setClassToggle("#introText", "visible") // Add 'visible' class to the intro text
+        .addTo(controller); // Add this scene to the controller
 
-    // Welcome message animation
+    // Message section animation
     new ScrollMagic.Scene({
         triggerElement: "#message",
-        duration: "100%",
-        triggerHook: 0.5
+        duration: "100%", // Animation duration is 100% of the section height
+        triggerHook: 0.5 // Trigger the animation when the element is in the middle of the viewport
     })
-        .setClassToggle("#welcomeText", "visible")
-        .addTo(controller);
+        .setClassToggle("#welcomeText", "visible") // Add 'visible' class to the welcome text
+        .addTo(controller); // Add this scene to the controller
 
-    // Canvas animation
-    const html = document.documentElement;
+    // Canvas animation setup
     const canvas = document.getElementById("hero-lightpass");
     const context = canvas.getContext("2d");
 
     const frameCount = 148;
     const currentFrame = index => (
         `https://www.apple.com/105/media/us/airpods-pro/2019/1299e2f5_9206_4470_b28e_08307a42f19b/anim/sequence/large/01-hero-lightpass/${index.toString().padStart(4, '0')}.jpg`
-    )
+    );
 
+    /**
+     * Preload images for smooth animation
+     */
     const preloadImages = () => {
         for (let i = 1; i < frameCount; i++) {
             const img = new Image();
@@ -84,23 +76,29 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    const img = new Image()
+    // Initialize the first image for the canvas
+    const img = new Image();
     img.src = currentFrame(1);
     canvas.width = 1158;
     canvas.height = 770;
     img.onload = function () {
         context.drawImage(img, 0, 0);
-    }
+    };
 
+    /**
+     * Update the canvas with the image corresponding to the current frame index
+     * @param {number} index - The frame index
+     */
     const updateImage = index => {
         img.src = currentFrame(index);
         context.drawImage(img, 0, 0);
-    }
+    };
 
+    // Canvas animation scene
     new ScrollMagic.Scene({
         triggerElement: ".pin",
-        duration: "200%",
-        triggerHook: 0
+        duration: "200%", // Animation duration is 200% of the pin section height
+        triggerHook: 0 // Trigger the animation as soon as the element enters the viewport
     })
         .on("progress", function (event) {
             const scrollProgress = event.progress;
@@ -108,10 +106,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 frameCount - 1,
                 Math.ceil(scrollProgress * frameCount)
             );
-            updateImage(frameIndex + 1);
+            updateImage(frameIndex + 1); // Update the image based on scroll progress
         })
-        .setPin(".pin")
-        .addTo(controller);
+        .setPin(".pin") // Pin the canvas section during the animation
+        .addTo(controller); // Add this scene to the controller
 
+    // Preload all images for the canvas animation
     preloadImages();
 });
